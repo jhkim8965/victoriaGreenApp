@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../widgets/message_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,6 +10,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<Map<String, dynamic>> menuList = [
+    {
+      'item': 'coffee',
+      'price': 1500,
+    },
+    {
+      'item': 'orange',
+      'price': 2500,
+    },
+    {
+      'item': 'MilkTee',
+      'price': 2000,
+    }
+  ];
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -79,6 +95,46 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Container(
                     color: Colors.orange,
+                    child: Column(
+                      children: [
+                        for (var menu in menuList)
+                          Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 2.0,
+                                color: Colors.black12,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 30,
+                                horizontal: 50,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      menu['item'],
+                                    ),
+                                    flex: 1,
+                                  ),
+                                  SizedBox(
+                                    width: 30,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      NumberFormat('#,###')
+                                          .format(menu['price']),
+                                    ),
+                                    flex: 1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                   Container(
                     color: Colors.yellow,
