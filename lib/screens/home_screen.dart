@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import '../models/menu_item.dart';
+import '../widgets/menu_list.dart';
 import '../widgets/message_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,23 +11,75 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Map<String, dynamic>> menuList = [
-    {
-      'item': 'coffee',
-      'price': 1500,
-    },
-    {
-      'item': 'orange',
-      'price': 2500,
-    },
-    {
-      'item': 'MilkTee',
-      'price': 2000,
-    }
-  ];
+  List<MenuItem> menuItemList = [];
+
+  void setMenuItemList() {
+    menuItemList.add(MenuItem(
+      item: 'coffee',
+      itemName: '아이스 아메리카노',
+      price: 1500,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'orange',
+      itemName: '오렌지 쥬스',
+      price: 2500,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'milkTea',
+      itemName: '밀크 티',
+      price: 2000,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'coffee',
+      itemName: '아이스 아메리카노',
+      price: 1500,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'milkTea',
+      itemName: '밀크 티',
+      price: 2000,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'orange',
+      itemName: '오렌지 쥬스',
+      price: 2500,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'coffee',
+      itemName: '아이스 아메리카노',
+      price: 1500,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'milkTea',
+      itemName: '밀크 티',
+      price: 2000,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'orange',
+      itemName: '오렌지 쥬스',
+      price: 2500,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'coffee',
+      itemName: '아이스 아메리카노',
+      price: 1500,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'milkTea',
+      itemName: '밀크 티',
+      price: 2000,
+    ));
+    menuItemList.add(MenuItem(
+      item: 'coffee',
+      itemName: '아이스 아메리카노',
+      price: 1500,
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
+    setMenuItemList();
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -68,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: [
             const TabBar(
-              indicatorColor: Colors.red,
+              indicatorColor: Colors.black12,
               tabs: [
                 Tab(
                   child: Text(
@@ -94,46 +147,16 @@ class _HomeScreenState extends State<HomeScreen> {
               child: TabBarView(
                 children: [
                   Container(
-                    color: Colors.orange,
-                    child: Column(
-                      children: [
-                        for (var menu in menuList)
-                          Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 2.0,
-                                color: Colors.black12,
-                              ),
+                    color: Colors.white,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          for (var menuItem in menuItemList)
+                            MenuList(
+                              menuItem: menuItem,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 30,
-                                horizontal: 50,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      menu['item'],
-                                    ),
-                                    flex: 1,
-                                  ),
-                                  SizedBox(
-                                    width: 30,
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      NumberFormat('#,###')
-                                          .format(menu['price']),
-                                    ),
-                                    flex: 1,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                   Container(
@@ -141,6 +164,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_cart_outlined),
+              label: 'Order',
             ),
           ],
         ),
